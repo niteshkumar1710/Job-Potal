@@ -8,7 +8,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({ 
-origin: ["https://Job-Protal.vercel.app"], 
+origin: ["https://job-potal-api.vercel.app"], 
 methods: ["POST", "GET"], 
 credentials: true 
 }
