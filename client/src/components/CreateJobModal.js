@@ -31,7 +31,7 @@ const CreateJobModal = ({ onCreate, onClose }) => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+  axios.defaults.withCredentials = true;
   const handleCreate = async () => {
     if (!validate()) return;
 
