@@ -1,0 +1,48 @@
+
+.job-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* responsive columns */
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+
+.find-jobs-page {
+  padding: 40px 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #007bff;
+}
+
+.filtered-section,
+.all-jobs-section {
+  margin-top: 40px;
+}
+
+.filtered-section h2,
+.all-jobs-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #0056b3;
+}
+
+.job-list,
+.job-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.no-results {
+  font-style: italic;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+}
