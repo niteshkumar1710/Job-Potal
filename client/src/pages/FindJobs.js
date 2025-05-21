@@ -1,26 +1,4 @@
-// import React, { useState, useEffect } from 'react';
-// import JobCard from '../components/JobCard';
-// import axios from 'axios';
-
-// export default function FindJobs() {
-//   const [jobs, setJobs] = useState([]);
-
-//   useEffect(() => {
-//     axios.get('http://localhost:5000/api/jobs')
-//       .then(res => setJobs(res.data))
-//       .catch(err => console.log(err));
-//   }, []);
-
-//   return (
-//     <div className="job-list-container">
-//       {jobs.map((job, idx) => (
-//         <JobCard key={idx} job={job} />
-//       ))}
-//     </div>
-//   );
-// }
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import JobCard from '../components/JobCard';
 import JobFilterBar from '../components/JobFilterBar';
 import './FindJobs.css';
@@ -35,17 +13,38 @@ const FindJobs = () => {
   });
 
   useEffect(() => {
-    fetchJobs();
+    // Sample job data (replace with DB data in production)
+    const sampleJobs = [
+      {
+        _id: '1',
+        title: 'Frontend Developer',
+        company: 'Tech Corp',
+        location: 'New York',
+        type: 'Full-time',
+        salary: '75',
+        description: 'React.js developer needed for frontend UI development.',
+      },
+      {
+        _id: '2',
+        title: 'Backend Engineer',
+        company: 'InnovateX',
+        location: 'San Francisco',
+        type: 'Part-time',
+        salary: '60',
+        description: 'Work with Node.js and MongoDB on backend systems.',
+      },
+      {
+        _id: '3',
+        title: 'UI/UX Designer',
+        company: 'DesignHub',
+        location: 'Remote',
+        type: 'Contract',
+        salary: '50',
+        description: 'Create user-friendly interfaces and experiences.',
+      },
+    ];
+    setJobs(sampleJobs);
   }, []);
-
-  const fetchJobs = async () => {
-    try {
-      const res = await axios.get('http://localhost:5000/api/jobs');
-      setJobs(res.data);
-    } catch (err) {
-      console.error('Error fetching jobs:', err.message);
-    }
-  };
 
   const filteredJobs = jobs.filter((job) => {
     return (
@@ -59,8 +58,6 @@ const FindJobs = () => {
 
   return (
     <div className="find-jobs-page">
-      
-
       <JobFilterBar filters={filters} setFilters={setFilters} />
       <h1 className="page-title">Find Your Next Opportunity</h1>
 
@@ -88,5 +85,3 @@ const FindJobs = () => {
 };
 
 export default FindJobs;
-
-
