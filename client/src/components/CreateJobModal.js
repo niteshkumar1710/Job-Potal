@@ -36,7 +36,7 @@ const CreateJobModal = ({ onCreate, onClose }) => {
     if (!validate()) return;
 
     try {
-      const response = await axios.post('http://localhost:5000/api/jobs', form);
+      const response = await axios.post('https://job-potal-api.vercel.app/jobs', form);
       onCreate(response.data); // update parent
       onClose(); // close modal
     } catch (error) {
