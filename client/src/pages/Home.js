@@ -1,40 +1,84 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import JobCard from '../components/JobCard';
+import JobFilterBar from '../components/JobFilterBar';
 import './Home.css';
 
-const Home = ({ jobs }) => {
-  const navigate = useNavigate();
+const Home = () => {
+ const [jobs, setJobs] = useState([]);
+  const [filters, setFilters] = useState({
+    title: '',
+    type: '',
+    location: '',
+    salary: [0, 100],
+  });
+
+  useEffect(() => {
+    // Sample job data (replace with DB data in production)
+    const sampleJobs = [
+      {
+        _id: '1',
+        title: 'Frontend Developer',
+        company: 'Tech Corp',
+        location: 'New York',
+        type: 'Full-time',
+        salary: '75',
+        description: 'React.js developer needed for frontend UI development.',
+      },
+      {
+        _id: '2',
+        title: 'Backend Engineer',
+        company: 'InnovateX',
+        location: 'San Francisco',
+        type: 'Part-time',
+        salary: '60',
+        description: 'Work with Node.js and MongoDB on backend systems.',
+      },
+      {
+        _id: '3',
+        title: 'UI/UX Designer',
+        company: 'DesignHub',
+        location: 'Remote',
+        type: 'Contract',
+        salary: '50',
+        description: 'Create user-friendly interfaces and experiences.',
+      },
+    ];
+    setJobs(sampleJobs);
+  }, []);
+
+  const filteredJobs = jobs.filter((job) => {
+    return (
+      job.title.toLowerCase().includes(filters.title.toLowerCase()) &&
+      job.location.toLowerCase().includes(filters.location.toLowerCase()) &&
+      (filters.type === '' || job.type === filters.type) &&
+      parseInt(job.salary) >= filters.salary[0] &&
+      parseInt(job.salary) <= filters.salary[1]
+    );
+  });
 
   return (
-    <div className="home-container">
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Your Dream Job Awaits</h1>
-          <p className="hero-subtitle">Discover top job opportunities tailored for you</p>
-          <div className="hero-actions">
-            <button className="btn-primary" onClick={() => navigate('/find-jobs')}>
-              🔍 Find Jobs
-            </button>
-            <button className="btn-secondary" onClick={() => navigate('/create-job')}>
-              ➕ Post a Job
-            </button>
-          </div>
+    <div className="find-jobs-page">
+      <JobFilterBar filters={filters} setFilters={setFilters} />
+      <h1 className="page-title">Find Your Next Opportunity</h1>
+
+      <section className="filtered-section">
+        <h2>Filtered Job Results</h2>
+        <div className="job-list">
+          {filteredJobs.length > 0 ? (
+            filteredJobs.map((job) => <JobCard key={job._id} job={job} />)
+          ) : (
+            <p className="no-results">No jobs found matching your filters.</p>
+          )}
         </div>
-        <img src="https://cdn-icons-png.flaticon.com/512/1256/1256650.png" alt="job portal" className="hero-image" />
       </section>
 
-      <section className="job-list-section">
-        <h2 className="section-title">Grab your opportunities</h2>
-        {jobs.length === 0 ? (
-          <p className="no-jobs">Be the first to choose a job</p>
-        ) : (
-          <div className="job-list">
-            {jobs.map((job, index) => (
-              <JobCard key={index} job={job} />
-            ))}
-          </div>
-        )}
+      <section className="all-jobs-section">
+        <h2>All Other Jobs</h2>
+        <div className="job-cards-grid">
+          {jobs.map((job) => (
+            <JobCard key={job._id} job={job} />
+          ))}
+        </div>
       </section>
     </div>
   );
